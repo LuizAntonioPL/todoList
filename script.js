@@ -24,10 +24,8 @@ function completeTodo(todo){
   console.log(todoItem.id)
   
   if(todos[id].isDone == false){
-    todo.checked = true
     todos[id].isDone = true
   } else {
-    todo.checked = false
     todos[id].isDone = false
   }
 
@@ -40,7 +38,7 @@ function renderTodos() {
     todoList.innerHTML += `
       <div class="${(element.isDone ? "doneItem" : "todoItem")}" id=${element.id}>
         <div class="todoHeader">
-          <input type="checkbox" id="selectTodo" onchange="completeTodo(this)" checked=${element.isDone}/>
+          <input type="checkbox" id="selectTodo" onchange="completeTodo(this)" ${(element.isDone ? "checked" : "")}/>
           <p id="todoName">${element.name}</p>
         </div>
         <button id="delButton" onclick="delTodo(this.parentNode)">x</button>
