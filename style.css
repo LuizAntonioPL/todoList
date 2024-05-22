@@ -27,6 +27,7 @@ body{
     box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.126);
 
     width: 30%;
+    height: 60%;
 }
 
 .todoContainer > p {
@@ -59,7 +60,7 @@ body{
     display: flex;
     flex-direction: column;
     gap: 10px;
-    height: 380px;
+    height: 100%;
     overflow-y: scroll;
     box-shadow: inset 0px -6px 7px -8px rgba(0, 0, 0, 0.61);
     border-radius: 5px;
