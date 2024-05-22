@@ -1,7 +1,16 @@
 const todoList = document.getElementById("todoList");
 const todoForm = document.getElementById("todoForm");
 
+console.log(JSON.parse(window.localStorage.getItem("todoItem1")))
+
 let todos = [];
+
+if(window.localStorage.length > 0){
+  for(let i = 0; i < window.localStorage.length; i++){
+    todos.push(JSON.parse(window.localStorage.getItem(`todoItem${i}`)))
+  }
+  renderTodos()
+}
 
 function addTodo(name) {
   if (name !== "") {
@@ -60,6 +69,7 @@ todoForm.addEventListener("submit", (e) => {
 
 window.addEventListener("beforeunload", () => {
   todos.forEach(element => {
-    window.localStorage.setItem(`todoItem${element.id}`, element)
+    let jsonItem = JSON.stringify(element)
+    window.localStorage.setItem(`todoItem${element.id}`, jsonItem)
   })
 })
