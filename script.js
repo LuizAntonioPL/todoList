@@ -12,7 +12,7 @@ function addTodo(name) {
   }
 }
 
-function delTodo(todo){
+function delTodo(todo) {
   todo.remove()
   console.log(todo.id)
   todos.splice(todo.id, 1)
@@ -22,12 +22,12 @@ function delTodo(todo){
   renderTodos()
 }
 
-function completeTodo(todo){
+function completeTodo(todo) {
   let todoItem = todo.parentNode.parentNode;
   let id = Number(todoItem.id);
   console.log(todoItem.id)
-  
-  if(todos[id].isDone == false){
+
+  if (todos[id].isDone == false) {
     todos[id].isDone = true
   } else {
     todos[id].isDone = false
@@ -54,7 +54,8 @@ function renderTodos() {
 
 todoForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  addTodo(e.target.todoInp.value);
+  addTodo(e.target.todoInp.value); 
+  e.target.todoInp.value = ""
 });
 
 window.addEventListener("beforeunload", () => {
