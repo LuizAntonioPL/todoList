@@ -8,8 +8,8 @@ function addTodo(name) {
     let currentId = todos.length;
     todos.push({ id: currentId, name: name, isDone: false });
     console.log(todos);
+    renderTodos();
   }
-  renderTodos();
 }
 
 function delTodo(todo){
