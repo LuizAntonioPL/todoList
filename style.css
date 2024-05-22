@@ -64,6 +64,12 @@ body{
     overflow-y: scroll;
     box-shadow: inset 0px -6px 7px -8px rgba(0, 0, 0, 0.61);
     border-radius: 5px;
+
+    text-align: center;
+}
+
+#todoList > p {
+    opacity: 0.7;
 }
 
 #todoList::-webkit-scrollbar{
