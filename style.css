@@ -1,0 +1,127 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  box-sizing: border-box;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(30, 31, 61);
+}
+
+.todoContainer{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(50, 43, 99);
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    border-radius: 5px;
+    gap: 10px;
+    scale: 1.5;
+    box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.126);
+}
+
+.todoContainer > p {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+#todoForm{
+    display: flex;
+    gap: 5px;
+}
+
+#todoForm button{
+    display: flex;
+    padding: 5px 10px;
+    background-color: rgb(106, 0, 255);
+    border: 1px solid white;
+    color: white;
+    border-radius: 3px;
+}
+
+#todoInp{
+    padding: 0px 10px;
+}
+
+#todoList{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 150px;
+    overflow-y: scroll;
+    box-shadow: inset 0px -6px 7px -8px rgba(0, 0, 0, 0.61);
+    border-radius: 5px;
+}
+
+#todoList::-webkit-scrollbar{
+    display: none;
+}
+
+.todoItem{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3px;
+    background-color: rgba(255, 255, 255, 0.046);
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid white;
+}
+
+.doneItem{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3px;
+    opacity: 0.5;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid white;
+}
+
+.doneItem p {
+    
+}
+
+#todoOpts{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    gap: 5px
+}
+
+#todoOpts button{
+    display: flex;
+    padding: 5px 10px;
+    border: 1px solid white;
+    color: white;
+    border-radius: 3px;
+}
+
+.todoHeader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+#delButton{
+    display: flex;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    color: white;
+    border-radius: 2px;
+}
+
+#doneTodo{
+    background-color: rgb(4, 179, 173);
+}
