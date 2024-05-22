@@ -6,15 +6,19 @@ let todos = [];
 function addTodo(name) {
   if (name !== "") {
     let currentId = todos.length;
-    todos.push({ id: currentId, name: name, isDone: false });
-    console.log(todos);
+    let todoItem = { id: currentId, name: name, isDone: false }
+    todos.push(todoItem);
     renderTodos();
   }
 }
 
 function delTodo(todo){
   todo.remove()
-  todos.splice(todos.indexOf(todo.id), 1)
+  console.log(todo.id)
+  todos.splice(todo.id, 1)
+  todos.forEach((element, index) => {
+    element.id = index
+  })
   renderTodos()
 }
 
@@ -34,6 +38,7 @@ function completeTodo(todo){
 
 function renderTodos() {
   todoList.innerHTML = "";
+
   todos.forEach((element) => {
     todoList.innerHTML += `
       <div class="${(element.isDone ? "doneItem" : "todoItem")}" id=${element.id}>
@@ -51,3 +56,9 @@ todoForm.addEventListener("submit", (e) => {
   e.preventDefault();
   addTodo(e.target.todoInp.value);
 });
+
+window.addEventListener("beforeunload", () => {
+  todos.forEach(element => {
+    window.localStorage.setItem(`todoItem${element.id}`, element)
+  })
+})
