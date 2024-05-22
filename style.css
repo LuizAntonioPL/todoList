@@ -36,7 +36,9 @@ body{
 
 #todoForm{
     display: flex;
-    gap: 5px;
+    gap: 10px;
+
+    justify-content: space-between;
 }
 
 #todoForm button{
@@ -50,6 +52,7 @@ body{
 
 #todoInp{
     padding: 0px 10px;
+    flex: 1;
 }
 
 #todoList{

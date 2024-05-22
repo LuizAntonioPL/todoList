@@ -55,6 +55,7 @@ function renderTodos() {
 todoForm.addEventListener("submit", (e) => {
   e.preventDefault();
   addTodo(e.target.todoInp.value);
+  document.getElementById("todoInp").value = "";
 });
 
 window.addEventListener("beforeunload", () => {
