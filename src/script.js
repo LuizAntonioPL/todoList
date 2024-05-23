@@ -1,8 +1,6 @@
 const todoList = document.getElementById("todoList");
 const todoForm = document.getElementById("todoForm");
 
-console.log(JSON.parse(window.localStorage.getItem("todoItem1")))
-
 let todos = [];
 
 if(window.localStorage.length > 0){
