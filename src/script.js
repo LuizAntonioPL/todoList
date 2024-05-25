@@ -52,6 +52,12 @@ function renderTodos() {
   
   todoList.innerHTML = "";
 
+  if (todos.length == 0) {
+    todoList.innerHTML = `
+      <p>Crie uma nova tarefa!</p>
+    `;
+  }
+
   todos.forEach((element) => {
       todoList.innerHTML += `
         <div class="${(element.isDone ? "doneItem" : "todoItem")}" id=${element.id} draggable=true>
