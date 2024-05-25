@@ -2,72 +2,99 @@ const todoList = document.getElementById("todoList");
 const todoForm = document.getElementById("todoForm");
 
 let todos = [];
+let numIds = 0;
 
 if(window.localStorage.length > 0){
-  for(let i = 0; i < window.localStorage.length; i++){
-    todos.push(JSON.parse(window.localStorage.getItem(`todoItem${i}`)))
-  }
-  renderTodos()
+  renderTodos();
 }
 
 function addTodo(name) {
   if (name !== "") {
-    let currentId = todos.length;
+    let currentId = numIds++;
     let todoItem = { id: currentId, name: name, isDone: false }
     todos.push(todoItem);
+
+    saveTodos()
     renderTodos();
   }
 }
 
 function delTodo(todo) {
-  todo.remove()
-  console.log(todo.id)
-  todos.splice(todo.id, 1)
-  todos.forEach((element, index) => {
-    element.id = index
-  })
-  renderTodos()
+  // Loopa pelo array de todos, 
+  // encontra o item a ser completado,
+  // deleta o item do array.
+  for (var i = 0; i < todos.length; i++) {
+    if (todos[i].id = todo.id) {
+      todos.splice(i);
+    }
+  }
+
+  localStorage.removeItem(`todoItem${todo.id}`);
+  todo.remove(); // remove o item do html
+  
+  saveTodos()
+  renderTodos();
 }
 
 function completeTodo(todo) {
   let todoItem = todo.parentNode.parentNode;
-  let id = Number(todoItem.id);
-  console.log(todoItem.id)
 
-  if (todos[id].isDone == false) {
-    todos[id].isDone = true
-  } else {
-    todos[id].isDone = false
+  // Loopa pelo array de todos, 
+  // encontra o item a ser completado,
+  // muda a variável.
+  for (var i = 0; i < todos.length; i++) {
+    if (todos[i].id == todoItem.id) {
+      todos[i].isDone = !todos[i].isDone;
+    }
   }
-
-  renderTodos()
+  
+  saveTodos()
+  renderTodos();
 }
 
 function renderTodos() {
+  loadTodos();
   todoList.innerHTML = "";
 
   todos.forEach((element) => {
-    todoList.innerHTML += `
-      <div class="${(element.isDone ? "doneItem" : "todoItem")}" id=${element.id}>
-        <div class="todoHeader">
-          <input type="checkbox" id="selectTodo" onchange="completeTodo(this)" ${(element.isDone ? "checked" : "")}/>
-          <p id="todoName">${element.name}</p>
+      todoList.innerHTML += `
+        <div class="${(element.isDone ? "doneItem" : "todoItem")}" id=${element.id}>
+          <div class="todoHeader">
+            <input type="checkbox" id="selectTodo" onchange="completeTodo(this)" ${(element.isDone ? "checked" : "")}/>
+            <p id="todoName">${element.name}</p>
+          </div>
+          <button id="delButton" onclick="delTodo(this.parentNode)">x</button>
         </div>
-        <button id="delButton" onclick="delTodo(this.parentNode)">x</button>
-      </div>
-    `;
+      `;
   });
 }
 
 todoForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  addTodo(e.target.todoInp.value); 
-  e.target.todoInp.value = ""
+  addTodo(e.target.todoInp.value);
+  e.target.todoInp.value = "";
 });
 
-window.addEventListener("beforeunload", () => {
+function saveTodos() {
   todos.forEach(element => {
-    let jsonItem = JSON.stringify(element)
-    window.localStorage.setItem(`todoItem${element.id}`, jsonItem)
+    let item = localStorage.getItem(`todoItem${element.id}`);
+    if (element !== item) {
+      let jsonItem = JSON.stringify(element);
+      localStorage.setItem(`todoItem${element.id}`, jsonItem);
+      localStorage.setItem(`numIds`, numIds);
+    }
   })
-})
+}
+
+function loadTodos() {
+  todos = [];
+  numIds = localStorage.getItem(`numIds`);
+
+  for(let i = 0; i < numIds; i++){
+    let item = localStorage.getItem(`todoItem${i}`);
+    
+    if (item !== null) {
+      todos.push(JSON.parse(item));
+    }
+  }
+}
