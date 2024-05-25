@@ -54,7 +54,7 @@ function renderTodos() {
 
   todos.forEach((element) => {
       todoList.innerHTML += `
-        <div class="${(element.isDone ? "doneItem" : "todoItem")}" id=${element.id}>
+        <div class="${(element.isDone ? "doneItem" : "todoItem")}" id=${element.id} draggable=true>
           <div class="todoHeader">
             <input type="checkbox" id="selectTodo" onchange="completeTodo(this)" ${(element.isDone ? "checked" : "")}/>
             <p id="todoName">${element.name}</p>
