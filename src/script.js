@@ -4,7 +4,8 @@ const todoForm = document.getElementById("todoForm");
 let todos = [];
 let numIds = 0;
 
-if(window.localStorage.length > 0){
+// Renderização inicial
+if(window.localStorage.length > 0) {
   renderTodos();
 }
 
@@ -14,46 +15,41 @@ function addTodo(name) {
     let todoItem = { id: currentId, name: name, isDone: false }
     todos.push(todoItem);
 
-    saveTodos()
+    saveTodos();
     renderTodos();
   }
 }
 
 function delTodo(todo) {
-  // Loopa pelo array de todos, 
-  // encontra o item a ser completado,
-  // deleta o item do array.
-  for (var i = 0; i < todos.length; i++) {
-    if (todos[i].id = todo.id) {
-      todos.splice(i);
-    }
-  }
+  // Acha o item e remove do array
+  let deleteIndex = todos.find(d => {
+    d.id = todo.id;
+  });
+  todos.splice(deleteIndex);
 
+  todo.remove(); // Remove o item do html
   localStorage.removeItem(`todoItem${todo.id}`);
-  todo.remove(); // remove o item do html
   
-  saveTodos()
+  saveTodos();
   renderTodos();
 }
 
 function completeTodo(todo) {
   let todoItem = todo.parentNode.parentNode;
 
-  // Loopa pelo array de todos, 
-  // encontra o item a ser completado,
-  // muda a variável.
   for (var i = 0; i < todos.length; i++) {
     if (todos[i].id == todoItem.id) {
       todos[i].isDone = !todos[i].isDone;
     }
   }
   
-  saveTodos()
+  saveTodos();
   renderTodos();
 }
 
 function renderTodos() {
   loadTodos();
+  
   todoList.innerHTML = "";
 
   todos.forEach((element) => {
@@ -75,6 +71,7 @@ todoForm.addEventListener("submit", (e) => {
   e.target.todoInp.value = "";
 });
 
+// Salva os itens no localStorage
 function saveTodos() {
   todos.forEach(element => {
     let item = localStorage.getItem(`todoItem${element.id}`);
@@ -86,13 +83,13 @@ function saveTodos() {
   })
 }
 
+// Carrega os itens do localStorage
 function loadTodos() {
   todos = [];
   numIds = localStorage.getItem(`numIds`);
 
   for(let i = 0; i < numIds; i++){
     let item = localStorage.getItem(`todoItem${i}`);
-    
     if (item !== null) {
       todos.push(JSON.parse(item));
     }
